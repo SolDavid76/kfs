@@ -3,29 +3,33 @@ NAME		=	$(NAME_BIN) $(NAME_ISO)
 NAME_BIN	=	kfs-2.bin
 NAME_ISO	=	kfs-2.iso
 
-####################################### SOURCE FILES #######################################
+################################# SOURCE FILES #################################
+
+SRC_C		=	kernel.c\
+				print.c\
+				utils.c\
+
+SRC_ASM		=	boot.s\
+				load_gdt.s\
 
 SRCDIR		=	srcs/
 
 INCLUDES	=	srcs/
 
-SRCS_C		=	$(addprefix $(SRCDIR),	kernel.c\
-										utils.c\
-										print.c)
-SRCS_ASM	=	$(addprefix $(SRCDIR),	boot.s\
-										load_gdt.s)
+SRCS_ASM	=	$(addprefix $(SRCDIR), $(SRC_ASM))
+SRCS_C		=	$(addprefix $(SRCDIR), $(SRC_S))
 
-######################################### OBJECTS ########################################
+################################### OBJECTS ####################################
 
 OBJDIR		=	objs/
 
-OBJS		=	$(OBJS_C) $(OBJS_ASM)
+OBJS		=	$(OBJS_ASM) $(OBJS_C) 
 
-OBJS_C		=	$(addprefix $(OBJDIR),$(notdir $(SRCS_C:.c=.o)))
-OBJS_ASM	=	$(addprefix $(OBJDIR),$(notdir $(SRCS_ASM:.s=.o)))
+OBJS_ASM	=	$(addprefix $(OBJDIR), $(SRC_ASM:.s=.o))
+OBJS_C		=	$(addprefix $(OBJDIR), $(SRC_C:.c=.o))
 
 
-######################################## COMPILERS #######################################
+################################## COMPILERS ###################################
 
 NASM		=	nasm -f elf32
 
@@ -44,19 +48,18 @@ CFLAGS		=	-m32\
 				-nostdlib\
 				-nodefaultlibs\
 
-#######################################	RULES #######################################
+#################################### RULES #####################################
 
 all:	$(NAME)
 
 $(OBJDIR): 
 		mkdir -p $(OBJDIR)
 
-$(OBJDIR)%.o: $(SRCDIR)%.c 
-		$(CC) -g3 -c $(CFLAGS) $< -o $@
-
 $(OBJDIR)%.o: $(SRCDIR)%.s
 		$(NASM) $< -o $@
 
+$(OBJDIR)%.o: $(SRCDIR)%.c 
+		$(CC) -g3 -c $(CFLAGS) $< -o $@
 
 $(NAME): $(OBJDIR) $(OBJS)
 		$(LD) $(LD_FLAGS) $(OBJS) -o $(NAME_BIN) -I $(INCLUDES)
