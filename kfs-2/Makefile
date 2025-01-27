@@ -11,7 +11,8 @@ INCLUDES	=	srcs/
 
 SRCS_C		=	$(addprefix $(SRCDIR),	kernel.c\
 										utils.c)
-SRCS_ASM	=	$(addprefix $(SRCDIR),	boot.s)
+SRCS_ASM	=	$(addprefix $(SRCDIR),	boot.s\
+										load_gdt.s)
 
 ######################################### OBJECTS ########################################
 
@@ -50,7 +51,7 @@ $(OBJDIR):
 		mkdir -p $(OBJDIR)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c 
-		$(CC) -c $(CFLAGS) $< -o $@
+		$(CC) -g3 -c $(CFLAGS) $< -o $@
 
 $(OBJDIR)%.o: $(SRCDIR)%.s
 		$(NASM) $< -o $@

@@ -9,7 +9,7 @@ int ft_strlen(char *str)
 	return (i);
 }
 
-void ft_putnbr_base(int nb, char *base)
+void ft_putnbr_base(unsigned int nb, char *base)
 {
 	int len = ft_strlen(base);
 
