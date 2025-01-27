@@ -14,7 +14,7 @@ void ft_putnbr_base(unsigned int nb, char *base)
 	int len = ft_strlen(base);
 
 	if (nb < len)
-		print_char(base[nb], WHITE_COLOR);
+		print_char(base[nb], WHITE);
 	if (nb >= len)
 	{
 		ft_putnbr_base(nb / len, base);

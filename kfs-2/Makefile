@@ -10,7 +10,8 @@ SRCDIR		=	srcs/
 INCLUDES	=	srcs/
 
 SRCS_C		=	$(addprefix $(SRCDIR),	kernel.c\
-										utils.c)
+										utils.c\
+										print.c)
 SRCS_ASM	=	$(addprefix $(SRCDIR),	boot.s\
 										load_gdt.s)
 
