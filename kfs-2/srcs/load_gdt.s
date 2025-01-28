@@ -2,7 +2,11 @@ bits 32
 
 section .text
 	global load_gdt
-	extern GDT
+	global get_stack_pointer
+
+	get_stack_pointer:
+		mov eax, esp
+		ret
 
 	load_gdt:
 		mov eax, [esp + 4]

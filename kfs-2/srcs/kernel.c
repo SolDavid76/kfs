@@ -22,7 +22,6 @@ t_GDTEntry create_descriptor(uint32_t base, uint32_t limit, uint8_t access)
 	return (descriptor);
 }
 
-
 void init_GDT(void)
 {
 	GDTPtr->limit = (sizeof(t_GDTEntry) * 7) - 1;
