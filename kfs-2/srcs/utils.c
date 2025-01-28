@@ -1,5 +1,17 @@
 #include "kfs.h"
 
+extern unsigned int 	vga_column;
+extern unsigned int 	vga_row;
+
+uint16_t	get_vga_index()
+{
+	if (vga_column >= VGA_WIDTH){
+		vga_column -= VGA_WIDTH;
+		vga_row += 1; 
+	}
+	return (vga_column + vga_row * VGA_WIDTH);
+}
+
 int ft_strlen(char *str)
 {
 	int i = 0;
@@ -7,17 +19,4 @@ int ft_strlen(char *str)
 	while (str[i])
 		i++;
 	return (i);
-}
-
-void ft_putnbr_base(unsigned int nb, char *base)
-{
-	int len = ft_strlen(base);
-
-	if (nb < len)
-		print_char(base[nb], WHITE);
-	if (nb >= len)
-	{
-		ft_putnbr_base(nb / len, base);
-		ft_putnbr_base(nb % len, base);
-	}
 }

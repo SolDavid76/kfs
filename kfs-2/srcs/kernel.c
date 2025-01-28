@@ -3,7 +3,8 @@
 extern int load_gdt(void *);
 
 unsigned short	*terminal_buffer = (unsigned short*)VGA_ADDRESS;
-unsigned int 	vga_index = 0;
+unsigned int 	vga_column = 0;
+unsigned int 	vga_row = 0;
 t_GDT			*GDTPtr = (t_GDT *)GDT_ADDRESS;
 t_GDTEntry		GDT[7];
 

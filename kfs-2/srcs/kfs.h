@@ -11,6 +11,13 @@
 
 #define GDT_ADDRESS 0x00000800
 
+#define VGA_WIDTH 80
+#define VGA_HEIGHT 25
+
+#define BASE_2	"01"
+#define BASE_10	"0123456789"
+#define BASE_16	"0123456789ABCDEF"
+
 
 typedef struct __attribute__((packed)) s_GDTEntry
 {
@@ -28,9 +35,12 @@ typedef struct __attribute__((packed)) s_GDT
 	uint32_t	base; // Adresse de la GDT
 }				t_GDT;
 
-void ft_putnbr_base(unsigned int nb, char *base);
+int ft_strlen(char *str);
+uint16_t	get_vga_index();
+
 
 void clear_screen(void);
-void print_char(char c, unsigned char color);
-void print_string(char* str, unsigned char color);
-void printk(void *GDTPtr);
+void print_char(char c, uint8_t color);
+void print_string(char* str, uint8_t color);
+void print_number(unsigned int nb, char *base, uint8_t color);
+void printk(t_GDT *GDTPtr);
