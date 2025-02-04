@@ -14,7 +14,7 @@ SRC_ASM		=	boot.s\
 
 SRCDIR		=	srcs/
 
-INCLUDES	=	srcs/
+INCLUDES	=	includes/
 
 SRCS_ASM	=	$(addprefix $(SRCDIR), $(SRC_ASM))
 SRCS_C		=	$(addprefix $(SRCDIR), $(SRC_S))
@@ -59,7 +59,7 @@ $(OBJDIR)%.o: $(SRCDIR)%.s
 		$(NASM) $< -o $@
 
 $(OBJDIR)%.o: $(SRCDIR)%.c 
-		$(CC) -g3 -c $(CFLAGS) $< -o $@
+		$(CC) -g3 -c $(CFLAGS) -I $(INCLUDES) $< -o $@
 
 $(NAME): $(OBJDIR) $(OBJS)
 		$(LD) $(LD_FLAGS) $(OBJS) -o $(NAME_BIN) -I $(INCLUDES)
